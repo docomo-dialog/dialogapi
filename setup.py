@@ -11,9 +11,9 @@ setup(
     author="NTT DOCOMO, INC.",
     author_email="docomo-dialog-ml@nttdocomo.com",
     install_requires=[
-        "requests==2.19.1",
+        "requests==2.20.0",
         "fire==0.1.3",
         "Click==7.0",
-        "PyYAML==3.13",
+        "PyYAML==4.2b1",
     ],
 )
