@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.4.0" xmlns="http://www.nttdocomo.com/aiml/schema" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.nttdocomo.com/aiml/schema/AIML.xsd">
+
+<topic name="conv">
+	<category>
+		<pattern>こんにちは</pattern>
+		<template>
+			こんにちは！あなたの対話システムへようこそ！
+			<random>
+				<li><srai>ask-name</srai></li>
+				<li><srai>ask-age</srai></li>
+			</random>
+		</template>
+	</category>
+	<!-- name に関する質問応答 -->
+	<category>
+		<pattern>ask-name</pattern>
+		<template id="ask-name">あなたの名前は何ですか？</template>
+	</category>
+	<category>
+		<pattern>*</pattern>
+		<that id="ask-name" />
+		<template>
+			なるほど、名前は<get name="_namelister_ne" />なんですね。
+		</template>
+	</category>
+	<!-- age に関する質問応答 -->
+	<category>
+		<pattern>ask-age</pattern>
+		<template id="ask-age">あなたの年齢はいくつですか？</template>
+	</category>
+	<category>
+		<pattern>*</pattern>
+		<that id="ask-age" />
+		<template>
+			なるほど、年齢は<star />なんですね。
+		</template>
+	</category>
+</topic>
+
+</aiml>

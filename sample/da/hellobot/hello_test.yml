@@ -1,0 +1,24 @@
+config:
+  keep_app_id: true
+
+tasks:
+  - name: 挨拶テスト
+    request:
+      voiceText: こんにちは
+    tests:
+      - method: equal
+        param: response.systemText.expression
+        expected: こんにちは。元気ですね！
+  - name: NoMatchテスト
+    request:
+      voiceText: こんちは
+      location: 
+        lat: 0
+        lon: 0
+      clientData:
+        option:
+          t: ols
+    tests:
+      - method: equal
+        param: response.systemText.expression
+        expected: "NOMATCH"

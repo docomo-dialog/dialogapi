@@ -1,0 +1,53 @@
+version: "1"
+
+servers:
+- name: TestServer
+  config:
+    host: ${HOST}
+    port: 10443
+    protocol: https
+    ssl_verify: true
+    user: ${USER}
+    password: ${PASSWORD}
+    endpoint:
+      management:
+        prefix: /management/v2.7
+        header:
+          content-type: application/json;charset=utf-8
+      registration:
+        prefix: /UserRegistrationServer/users/applications
+        header:
+          content-type: application/json;charset=utf-8
+      dialogue:
+        prefix: /SpontaneousDialogueServer/dialogue
+        header:
+          content-type: application/json;charset=utf-8
+
+projects:
+- name: TestProject
+  config:
+    project_name: DA
+  bots:
+  - name: QBot
+    config:
+      bot_id: DA_QBot
+    aimls:
+    - qbot/qbot.aiml
+    tests:
+    - qbot/qbot_test.yml
+  - name: HelloBot
+    config:
+      bot_id: DA_HelloBot
+      sraix: global
+    configs:
+      - hellobot/hello.config
+    properties:
+      - hellobot/hello.property
+    aimls:
+      - hellobot/hello.aiml
+    maps:
+      - hellobot/hello.map
+    sets:
+      - hellobot/hello.set
+    tests:
+      - hellobot/hello_test.yml

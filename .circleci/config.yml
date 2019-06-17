@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  # コードスタイルチェック
+  lint:
+    docker:
+      - image: python:3.7.1-alpine3.8
+    steps:
+      - run: apk add --no-cache git
+      - checkout
+      - run: pip install .
+      - run: pip install pycodestyle==2.4.0
+      - run: pycodestyle .
+
+  # Network access を伴わないテスト
+  test_small:
+    docker:
+      - image: python:3.7.1-alpine3.8
+    steps:
+      - run: apk add --no-cache git
+      - checkout
+      - run: pip install .
+      - run: cd test/small && python -m unittest -v *.py
+
+  # Network access を伴うテスト
+  test_large:
+    docker:
+      - image: python:3.7.1-alpine3.8
+    steps:
+      - run: apk add --no-cache git
+      - checkout
+      - run: pip install .
+      - run: cd test/large && python -m unittest -v *.py
+      - run: cd test/cli && sh clitest.sh

@@ -1,0 +1,49 @@
+config:
+  keep_app_id: true
+
+tasks:
+  -
+    name: 「こんにちは」に対する名前・年齢質問テスト
+    request:
+      voiceText: こんにちは
+      initTopicId: conv
+    # テスト以下に、request に対するレスポンスの内容のテストを書きます。
+    tests:
+      - # method `in` は、 `param` で指定した文字列が `expected` のいずれかと一致しているかを確認します。
+        method: in
+        param: response.systemText.expression
+        expected: 
+          - こんにちは！あなたの対話システムへようこそ！あなたの名前は何ですか？
+          - こんにちは！あなたの対話システムへようこそ！あなたの年齢はいくつですか？
+      - # method `regex_equal` は、 `param` で指定した正規表現が `expected` にマッチするかテストします。
+        method: regex_equal
+        param: response.systemText.expression
+        expected: ^こんにちは！あなたの対話システムへようこそ！.+$
+      - # method `regex_in` は、 `param` で指定した正規表現が `expected` の少なくとも一つとマッチするかテストします。
+        method: regex_in
+        param: response.systemText.expression
+        expected:
+          - ^.+あなたの名前は何ですか？$
+          - ^.+あなたの年齢はいくつですか？
+      - method: regex_equal
+        param: response.systemText.expression
+        expected: あなたの
+      - # method `not_in` は、 `param` で指定した正規表現が `expected` の全てと一致しないことをテストします。
+        method: not_in
+        param: response.systemText.expression
+        expected: 
+          - おはよう！
+          - こんにちは！
+      - # method `not_equal` は、 `param` で指定した文字列が `expected` と一致しないことをテストします。
+        method: not_equal
+        param: response.systemText.expression
+        expected: おはよう！
+      - # method `regex_not_equal` は、 `param` で指定した正規表現が `expected` と一致しないことをテストします。
+        method: regex_not_equal
+        param: response.systemText.expression
+        expected: ^こんにちは！あなたの対話システムへようこそ！$
+      - # method `regex_not_in` は、 `param` で指定した正規表現が `expected` の全てとマッチしないことをテストします。
+        method: regex_not_in
+        param: response.systemText.expression
+        expected:
+          - ^あなたの$

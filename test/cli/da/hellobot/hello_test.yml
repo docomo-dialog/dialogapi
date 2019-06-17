@@ -1,0 +1,29 @@
+# config 以下でテストの設定を書きます
+config:
+  # テスト中に app_id を変更しない場合は `keep_app_id` を true に設定します。
+  keep_app_id: true
+
+tasks:
+  - # name でテストの名称を書きます。どのようなテストかわかる適切な名前をつけてください。
+    name: 挨拶テスト
+    # request 以下でリクエストの内容を書きます。
+    request:
+      voiceText: はろー
+    tests:
+      - # method `equal` は、 `param` で指定した文字列が `expected` と一致するかテストします。
+        method: equal
+        param: response.systemText.expression
+        expected: "オンラインで変更済み"
+  - name: NoMatchテスト
+    request:
+      voiceText: こんちは
+      location: 
+        lat: 0
+        lon: 0
+      clientData:
+        option:
+          t: ols
+    tests:
+      - method: equal
+        param: response.systemText.expression
+        expected: "NOMATCH"
