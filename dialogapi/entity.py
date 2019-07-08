@@ -162,7 +162,7 @@ class _KeyValueResource:
 
     def dict(self):
         cdict = dict()
-        with open(self._filename) as f:
+        with open(self._filename, encoding="utf-8") as f:
             for line in f:
                 key, val = line.strip("\n").split("=")
                 cdict[key] = val

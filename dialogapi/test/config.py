@@ -40,7 +40,7 @@ tasks:
 
 class Parser:
     def parse(self, filename):
-        with open(filename) as f:
+        with open(filename, encoding="utf-8") as f:
             content = f.read()
         return self.parse_fd(content)
 
