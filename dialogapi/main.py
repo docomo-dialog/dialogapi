@@ -169,7 +169,7 @@ def bot_add(config, server, project, bot):
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def bot_remove(config, server, project, bot):
     """ボットを削除する"""
     _bot_helper("bot_remove", config, server, project, bot)
@@ -179,7 +179,7 @@ def bot_remove(config, server, project, bot):
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def bot_update(config, server, project, bot):
     """ボットを更新する"""
     _bot_helper("bot_update", config, server, project, bot)
@@ -189,7 +189,7 @@ def bot_update(config, server, project, bot):
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def bot_compile(config, server, project, bot):
     """ボットをコンパイルする"""
     _bot_helper("bot_compile", config, server, project, bot)
@@ -199,7 +199,7 @@ def bot_compile(config, server, project, bot):
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def bot_transfer(config, server, project, bot):
     """ボットを転送する"""
     _bot_helper("bot_transfer", config, server, project, bot)
@@ -227,7 +227,7 @@ def _judge_test(results):
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def bot_test(config, server, project, bot):
     """ボットをテストする"""
     server_, entity_bucket = build_entity_bucket(config, server)
@@ -295,7 +295,7 @@ def set_():
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def set_upsert(config, server, project, bot):
     """SETを追加、更新する"""
     _bot_entity_helper(
@@ -319,7 +319,7 @@ def map_():
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def map_upsert(config, server, project, bot):
     """MAPを追加、更新する"""
     _bot_entity_helper(
@@ -343,7 +343,7 @@ def property_():
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def property_upsert(config, server, project, bot):
     """BotPropertyを追加、更新する"""
     _bot_entity_helper(
@@ -367,7 +367,7 @@ def config_():
 @click.option('--config', help='config file', type=str, required=True)
 @click.option('--server', help="server", type=str, required=True)
 @click.option('--project', help="project", type=str, required=True)
-@click.option('--bot', help="bot", type=str)
+@click.option('--bot', help="bot", type=str, required=True)
 def config_upsert(config, server, project, bot):
     """BotConfigを追加、更新する"""
     _bot_entity_helper(
