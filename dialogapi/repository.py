@@ -306,7 +306,7 @@ class AIMLRepository:
             "projects/{}/bots/{}/aiml".format(self._project.id_, self._bot.id_)
         )
 
-        with open(aiml.filename) as f:
+        with open(aiml.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
             res = requests.put(
                 endpoint,
@@ -339,7 +339,7 @@ class SetRepository:
             "projects/{}/bots/{}/sets".format(self._project.id_, self._bot.id_)
         )
 
-        with open(set.filename) as f:
+        with open(set.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
             res = requests.put(
                 endpoint,
@@ -372,7 +372,7 @@ class MapRepository:
             "projects/{}/bots/{}/maps".format(self._project.id_, self._bot.id_)
         )
 
-        with open(map.filename) as f:
+        with open(map.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
             res = requests.put(
                 endpoint,

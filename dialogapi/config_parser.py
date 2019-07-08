@@ -47,7 +47,7 @@ class Parser:
         Returns:
             ResourceBucket: ResourceBucket インターフェースを実装するオブジェクト
         """
-        with open(filename) as f:
+        with open(filename, encoding="utf-8") as f:
             content = f.read()
         return self.parse_fd(content, server, context)
 
