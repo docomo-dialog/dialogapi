@@ -26,18 +26,18 @@ servers:
 projects:
 - name: TestProject
   config:
-    project_name: DA
+    project_name: ${PROJECT}
   bots:
   - name: QBot
     config:
-      bot_id: DA_QBot
+      bot_id: ${PROJECT}_QBot
     aimls:
     - qbot/qbot.aiml
     tests:
     - qbot/qbot_test.yml
   - name: HelloBot
     config:
-      bot_id: DA_HelloBot
+      bot_id: ${PROJECT}_HelloBot
       sraix: global
     configs:
       - hellobot/hello.config
