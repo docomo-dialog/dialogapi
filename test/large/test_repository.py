@@ -30,10 +30,11 @@ PORT = "10443"
 HOST = os.environ["HOST"]
 USER = os.environ["USER"]
 PASSWORD = os.environ["PASSWORD"]
+PROJECT = os.environ["PROJECT"]
 
 MANAGEMENT_ENDPOINT = Endpoint(
     host=HOST, port=PORT, protocol=PROTOCOL,
-    prefix="/management/v2.7",
+    prefix="/NLPManagementAPI",
     header={"content-type": "application/json;charset=utf-8"}
 )
 REGISTRATION_ENDPOINT = Endpoint(
@@ -57,7 +58,7 @@ def get_login_user():
 
 
 def get_project():
-    return Project(name="DSU", id_=144)
+    return Project(name=PROJECT, id_=11)
 
 
 def get_project_repository():
@@ -70,7 +71,7 @@ def get_project_repository():
 
 
 def get_bot():
-    return Bot(id_="DSU_abeTest")
+    return Bot(id_="{}_test".format(PROJECT))
 
 
 def get_bot_repository():

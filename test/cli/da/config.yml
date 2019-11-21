@@ -10,7 +10,7 @@ servers:
     password: ${PASSWORD}
     endpoint:
       management:
-        prefix: /management/v2.7
+        prefix: /NLPManagementAPI
         header:
           content-type: application/json;charset=utf-8
       registration:
@@ -33,7 +33,7 @@ servers:
     ssl_verify: false
     endpoint:
       management:
-        prefix: /management/v2.7
+        prefix: /NLPManagementAPI
         header:
           content-type: application/json;charset=utf-8
       registration:
@@ -67,18 +67,18 @@ servers:
 projects:
 - name: DialogAPITestProject
   config:
-    project_name: DA
+    project_name: ${PROJECT}
   bots:
   - name: QBot
     config:
-      bot_id: DA_TestBot2
+      bot_id: ${PROJECT}_TestBot2
     aimls:
     - qbot/qbot.aiml
     tests:
     - qbot/qbot_test.yml
   - name: HelloBot
     config:
-      bot_id: DA_TestBot1
+      bot_id: ${PROJECT}_TestBot1
       sraix: global
     configs:
       - hellobot/hello.config
