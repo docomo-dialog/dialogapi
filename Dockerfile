@@ -1,4 +1,4 @@
-from python:3.7.1-alpine3.8
+from 3.6.9-alpine3.10
 
 COPY . /dialogapi
 

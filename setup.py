@@ -7,7 +7,7 @@ from distutils.core import setup
 setup(
     name="dialogapi",
     packages=["dialogapi", "dialogapi.test"],
-    version="1.0.0",
+    version="1.0.3",
     author="NTT DOCOMO, INC.",
     author_email="docomo-dialog-ml@nttdocomo.com",
     install_requires=[
