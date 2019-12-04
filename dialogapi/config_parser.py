@@ -95,12 +95,13 @@ def _validate_dic(dic, keys):
 
 class _ServerParser:
     """プロジェクト構成ファイルのサーバセクションを解析するクラス"""
-    def _get_endpoint(self, endpoint, name, host, port, protocol):
+    def _get_endpoint(self, endpoint, name, host, port, protocol, ssl_verify):
         if name in endpoint:
             return Endpoint(
                 host=host, port=port, protocol=protocol,
                 prefix=endpoint[name]["prefix"],
                 header=endpoint[name]["header"],
+                ssl_verify=ssl_verify,
             )
         else:
             return None
@@ -113,18 +114,19 @@ class _ServerParser:
             host = _get(server_config, "host")
             port = _get(server_config, "port")
             protocol = _get(server_config, "protocol")
+            ssl_verify = server_config.get("ssl_verify", True)
 
             management = self._get_endpoint(
                 endpoint, "management",
-                host, port, protocol
+                host, port, protocol, ssl_verify
             )
             registration = self._get_endpoint(
                 endpoint, "registration",
-                host, port, protocol
+                host, port, protocol, ssl_verify
             )
             dialogue = self._get_endpoint(
                 endpoint, "dialogue",
-                host, port, protocol
+                host, port, protocol, ssl_verify
             )
             user = User(
                 name=_get_default(server_config, "user", None),
@@ -135,7 +137,7 @@ class _ServerParser:
                 registration_endpoint=registration,
                 dialogue_endpoint=dialogue,
                 user=user,
-                ssl_verify=server_config.get("ssl_verify", True)
+                ssl_verify=ssl_verify
             )
 
             name = _get(item, "name")

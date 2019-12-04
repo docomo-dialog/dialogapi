@@ -6,7 +6,6 @@
 """
 
 
-from dialogapi.requests import requests
 from dialogapi.entity import Project
 from dialogapi.entity import Bot
 from dialogapi.entity import Application
@@ -69,10 +68,12 @@ class UserRepository:
 
         # ログイン
         data = {"accountName": user.name, "password": user.password}
-        res = requests.post(endpoint,
-                            json=data,
-                            headers=self._endpoint.header,
-                            timeout=3)
+        res = self._endpoint.requests.post(
+            endpoint,
+            json=data,
+            headers=self._endpoint.header,
+            timeout=3
+        )
         assert_status_code(200, res.status_code)
         access_token = res.json()["accessToken"]
 
@@ -96,8 +97,10 @@ class ProjectRepository:
             List[project.Project]: サーバが管理するプロジェクト管理オブジェクトのリスト
         """
         endpoint = self._endpoint.url("projects")
-        res = requests.get(endpoint,
-                           headers=authorizer_header(self._user))
+        res = self._endpoint.requests.get(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(200, res.status_code)
         projects = [Project(name=item["projectName"],
                             id_=item["projectId"],
@@ -130,7 +133,10 @@ class BotRepository:
         endpoint = self._endpoint.url(
             "projects/{}/bots".format(self._project.id_)
         )
-        res = requests.get(endpoint, headers=authorizer_header(self._user))
+        res = self._endpoint.requests.get(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(200, res.status_code)
 
         bots = res.json()["bots"]
@@ -180,17 +186,21 @@ class BotRepository:
         if not ignore_sraix:
             data["sraix"] = bot.sraix
 
-        res = requests.post(endpoint,
-                            headers=authorizer_header(self._user),
-                            json=data)
+        res = self._endpoint.requests.post(
+            endpoint,
+            headers=authorizer_header(self._user),
+            json=data
+        )
         assert_status_code(201, res.status_code)
 
     def remove(self, bot):
         endpoint = self._endpoint.url(
             "projects/{}/bots/{}".format(self._project.id_, bot.id_)
         )
-        res = requests.delete(endpoint,
-                              headers=authorizer_header(self._user))
+        res = self._endpoint.requests.delete(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(204, res.status_code)
 
     def update(self, bot, ignore_sraix=False):
@@ -211,9 +221,11 @@ class BotRepository:
         if not ignore_sraix:
             data["sraix"] = bot.sraix
 
-        res = requests.put(endpoint,
-                           headers=authorizer_header(self._user),
-                           json=data)
+        res = self._endpoint.requests.put(
+            endpoint,
+            headers=authorizer_header(self._user),
+            json=data
+        )
         assert_status_code(204, res.status_code)
 
     def compile(self, bot):
@@ -229,7 +241,10 @@ class BotRepository:
                 self._project.id_, bot.id_
             )
         )
-        res = requests.post(endpoint, headers=authorizer_header(self._user))
+        res = self._endpoint.requests.post(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(202, res.status_code)
         return res.json()
 
@@ -246,7 +261,10 @@ class BotRepository:
                 self._project.id_, bot.id_
             )
         )
-        res = requests.get(endpoint, headers=authorizer_header(self._user))
+        res = self._endpoint.requests.get(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(200, res.status_code)
         completed = res.json()["status"] == "Completed"
         return completed
@@ -264,7 +282,10 @@ class BotRepository:
                 self._project.id_, bot.id_
             )
         )
-        res = requests.post(endpoint, headers=authorizer_header(self._user))
+        res = self._endpoint.requests.post(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(202, res.status_code)
         return res.json()
 
@@ -281,7 +302,10 @@ class BotRepository:
                 self._project.id_, bot.id_
             )
         )
-        res = requests.get(endpoint, headers=authorizer_header(self._user))
+        res = self._endpoint.requests.get(
+            endpoint,
+            headers=authorizer_header(self._user)
+        )
         assert_status_code(200, res.status_code)
         completed = all(
             item["status"] == "Completed"
@@ -308,7 +332,7 @@ class AIMLRepository:
 
         with open(aiml.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
-            res = requests.put(
+            res = self._endpoint.requests.put(
                 endpoint,
                 headers=authorizer_header(self._user),
                 files=files
@@ -341,7 +365,7 @@ class SetRepository:
 
         with open(set.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
-            res = requests.put(
+            res = self._endpoint.requests.put(
                 endpoint,
                 headers=authorizer_header(self._user),
                 files=files
@@ -374,7 +398,7 @@ class MapRepository:
 
         with open(map.filename, encoding="utf-8") as f:
             files = {"uploadFile": f}
-            res = requests.put(
+            res = self._endpoint.requests.put(
                 endpoint,
                 headers=authorizer_header(self._user),
                 files=files
@@ -402,9 +426,11 @@ class PropertyRepository:
                 self._project.id_, self._bot.id_
             )
         )
-        res = requests.post(endpoint,
-                            headers=authorizer_header(self._user),
-                            json=property.dict())
+        res = self._endpoint.requests.post(
+            endpoint,
+            headers=authorizer_header(self._user),
+            json=property.dict()
+        )
         assert_status_code(201, res.status_code)
 
     def _update(self, property):
@@ -413,9 +439,11 @@ class PropertyRepository:
                 self._project.id_, self._bot.id_
             )
         )
-        res = requests.put(endpoint,
-                           headers=authorizer_header(self._user),
-                           json=property.dict())
+        res = self._endpoint.requests.put(
+            endpoint,
+            headers=authorizer_header(self._user),
+            json=property.dict()
+        )
         assert_status_code(204, res.status_code)
 
     def upsert(self, property):
@@ -450,9 +478,11 @@ class ConfigRepository:
             )
         )
 
-        res = requests.put(endpoint,
-                           headers=authorizer_header(self._user),
-                           json=config.dict())
+        res = self._endpoint.requests.put(
+            endpoint,
+            headers=authorizer_header(self._user),
+            json=config.dict()
+        )
         assert_status_code(201, res.status_code)
 
 
@@ -471,7 +501,7 @@ class ApplicationRepository:
         if app_id:
             data["app_id"] = app_id
 
-        res = requests.post(
+        res = self._endpoint.requests.post(
             endpoint,
             headers=self._endpoint.header,
             json=data
@@ -495,7 +525,7 @@ class DialogueRepository:
 
     def dialogue(self, request):
         endpoint = self._endpoint.url()
-        res = requests.post(
+        res = self._endpoint.requests.post(
             endpoint,
             headers=self._endpoint.header,
             json=request.dict()

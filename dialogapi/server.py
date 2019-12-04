@@ -1,6 +1,6 @@
 """APIのエンドポイントとユーザを管理するモジュール"""
 
-from dialogapi.requests import requests
+from dialogapi.requests import Requests
 
 
 class EndpointException(Exception):
@@ -9,16 +9,25 @@ class EndpointException(Exception):
 
 class Endpoint:
     """APIのエンドポイントを表すクラス"""
-    def __init__(self, host, port, protocol, prefix, header):
+    def __init__(self, host, port, protocol, prefix, header, ssl_verify):
         self._host = host
         self._port = port
         self._protocol = protocol
         self._prefix = prefix
         self._header = header
+        self._ssl_verify = ssl_verify
 
     @property
     def header(self):
         return self._header
+
+    @property
+    def ssl_verify(self):
+        return self._ssl_verify
+
+    @property
+    def requests(self, *args, **argv):
+        return Requests(verify=self._ssl_verify)
 
     def url(self, point=None):
         args = (self._protocol, self._host, self._port, self._prefix)
@@ -39,8 +48,6 @@ class Server:
         self._dialogue_endpoint = dialogue_endpoint
         self._user = user
         self._ssl_verify = ssl_verify
-        if self._ssl_verify:
-            requests.set_verify(False)
 
     @property
     def user(self):
