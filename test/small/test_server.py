@@ -11,6 +11,7 @@ def build_endpoint():
     protocol = "https"
     prefix = "/management"
     header = {"content-type": "management"}
+    ssl_verify = True
     url = "{}://{}:{}{}".format(protocol, host, port, prefix)
 
     endpoint = Endpoint(
@@ -18,10 +19,20 @@ def build_endpoint():
         port=port,
         protocol=protocol,
         prefix=prefix,
+        ssl_verify=ssl_verify,
         header=header
     )
 
-    return endpoint, header, url
+    return endpoint, header, url, ssl_verify
+
+
+class EndpointTest(unittest.TestCase):
+    def test_properties(self):
+        endpoint, header, url, ssl_verify = build_endpoint()
+        self.assertEqual(endpoint.header, header)
+        self.assertEqual(endpoint.url(), url)
+        self.assertEqual(endpoint.ssl_verify, ssl_verify)
+        self.assertEqual(endpoint.requests.verify, ssl_verify)
 
 
 class ServerTest(unittest.TestCase):
@@ -88,13 +99,13 @@ class ServerTest(unittest.TestCase):
 
 class PropertyTest(unittest.TestCase):
     def test_header(self):
-        endpoint, header, _ = build_endpoint()
+        endpoint, header, _ = build_endpoint()[:3]
         self.assertEqual(endpoint.header, header)
 
     def test_url(self):
-        endpoint, _, url = build_endpoint()
+        endpoint, _, url = build_endpoint()[:3]
         self.assertEqual(endpoint.url(), url)
 
     def test_url_with_point(self):
-        endpoint, _, url = build_endpoint()
+        endpoint, _, url = build_endpoint()[:3]
         self.assertEqual(endpoint.url("test"), url + "/test")

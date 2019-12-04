@@ -35,17 +35,20 @@ PROJECT = os.environ["PROJECT"]
 MANAGEMENT_ENDPOINT = Endpoint(
     host=HOST, port=PORT, protocol=PROTOCOL,
     prefix="/NLPManagementAPI",
-    header={"content-type": "application/json;charset=utf-8"}
+    header={"content-type": "application/json;charset=utf-8"},
+    ssl_verify=True
 )
 REGISTRATION_ENDPOINT = Endpoint(
     host=HOST, port=PORT, protocol=PROTOCOL,
     prefix="/UserRegistrationServer/users/applications",
-    header={"content-type": "application/json;charset=utf-8"}
+    header={"content-type": "application/json;charset=utf-8"},
+    ssl_verify=True
 )
 DIALOGUE_ENDPOINT = Endpoint(
     host=HOST, port=PORT, protocol=PROTOCOL,
     prefix="/SpontaneousDialogueServer/dialogue",
-    header={"content-type": "application/json;charset=utf-8"}
+    header={"content-type": "application/json;charset=utf-8"},
+    ssl_verify=True
 )
 
 

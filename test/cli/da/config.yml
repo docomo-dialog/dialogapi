@@ -23,14 +23,38 @@ servers:
           content-type: application/json;charset=utf-8
 
 
-- name: TestServer-noverify
+# SSL検証に失敗するサーバ例
+- name: TestServer-host_ip-ssl_noverify
   config:
-    host: ${HOST}
+    host: ${IP}
     port: 10443
     protocol: https
     user: ${USER}
     password: ${PASSWORD}
     ssl_verify: false
+    endpoint:
+      management:
+        prefix: /NLPManagementAPI
+        header:
+          content-type: application/json;charset=utf-8
+      registration:
+        prefix: /UserRegistrationServer/users/applications
+        header:
+          content-type: application/json;charset=utf-8
+      dialogue:
+        prefix: /SpontaneousDialogueServer/dialogue
+        header:
+          content-type: application/json;charset=utf-8
+
+# SSL検証を行わないサーバ例
+- name: TestServer-host_ip-ssl_verify
+  config:
+    host: ${IP}
+    port: 10443
+    protocol: https
+    user: ${USER}
+    password: ${PASSWORD}
+    ssl_verify: true
     endpoint:
       management:
         prefix: /NLPManagementAPI

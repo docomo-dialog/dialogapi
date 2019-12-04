@@ -44,3 +44,18 @@ dialogapi bot      remove --config config.yml --server TestServer --project Dial
 
 # Test tear down: 初期化
 dialogapi project reset --config config.yml --server TestServer --project DialogAPITestProject
+
+#  IP指定のhttps接続でSSL検証しない例 - エラーが発生しないことを確認する
+dialogapi project list  --config config.yml --server TestServer-host_ip-ssl_noverify
+
+# SSL検証が失敗する例 - エラーが発生することを確認する
+echo "--- Start SSL verification failure test ---"
+result=0
+dialogapi project list  --config config.yml --server TestServer-host_ip-ssl_verify || result=$?
+if [ "${result}" = 1 ]; then
+    echo "Finished SSL verification failure test succesfully exited with status code ${result}"
+else
+    echo "SSL verification failure test failed with status code ${result}"
+    exit 1
+fi
+echo "--- Succesfully finished SSL verification failure test ---"
