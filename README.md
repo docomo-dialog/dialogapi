@@ -32,7 +32,7 @@ Testing bot DA_HelloBot
 
 ## インストール
 
-バージョン 3.7 以上の Python をインストールしたのち、pip で dialogapi をインストールしてください。
+バージョン 3.6 以上の Python をインストールしたのち、pip で dialogapi をインストールしてください。
 
 ```sh
 $ pip install git+https://github.com/docomo-dialog/dialogapi
