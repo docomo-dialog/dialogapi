@@ -53,3 +53,5 @@ dialogapi が提供する全てのコマンドは [コマンド一覧](docs/comm
 ## License
 
 New BSD License
+
+test
