@@ -14,6 +14,6 @@ setup(
         "requests==2.20.0",
         "fire==0.1.3",
         "Click==7.0",
-        "PyYAML==4.2b1",
+        "PyYAML==5.4",
     ],
 )
